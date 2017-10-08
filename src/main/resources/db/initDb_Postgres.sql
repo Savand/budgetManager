@@ -38,7 +38,7 @@ CREATE TABLE budgets (
   budget_name             text NOT NULL,
   budget_creator_id       INTEGER NOT NULL,
   description             TEXT,
-  CONSTRAINT budget_user_idx UNIQUE (budget_creator_id, budget_name),
+  CONSTRAINT budget_user_creator_idx UNIQUE (budget_creator_id, budget_name),
   FOREIGN KEY (budget_creator_id) REFERENCES users (id)
 );
 
