@@ -21,7 +21,7 @@
 
 
   <!-- <logger name="org.springframework.jdbc" level="debug" /> -->
-  <logger
+<!--   <logger
     name="org.savand.budget_manager"
     level="debug" />
   <logger
@@ -35,7 +35,7 @@
     level="debug" />
   <logger
     name="org.hibernate.hql"
-    level="debug" />
+    level="debug" /> -->
 
   <logger
     name="org.hibernate"
