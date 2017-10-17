@@ -22,28 +22,30 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "email", name = "unique_email") })
-public @Data class User extends BaseEntity{
+public class User extends BaseEntity{
 
 	@Column(name = "first_name")
-	private String firstName;
+	@Getter @Setter private String firstName;
 	
 	@Column(name = "last_name")
-	private String lastName;
+	@Getter @Setter private String lastName;
 	
 	@Column(nullable = false, unique = true)
 	@Email(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
-	private String email;
+	@Getter @Setter private String email;
 	
     @Column(nullable = false)
     @NotEmpty
     @Length(min = 5)
-	private String password;
+    @Getter @Setter private String password;
 	
 	@Column(nullable = false)
-	private boolean enabled = true;
+	@Getter @Setter private boolean enabled = true;
 	
     @Enumerated(EnumType.STRING)
 	@CollectionTable(name = "users_roles", uniqueConstraints = @UniqueConstraint(columnNames = { "user_id",
@@ -51,13 +53,20 @@ public @Data class User extends BaseEntity{
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(name = "role")
 	@JsonIgnore
-	private Set<Role> roles;
+	@Getter @Setter private Set<Role> roles;
     
     @ManyToMany(mappedBy = "contributors")
-    private List<Budget> budgets;
+    @Getter @Setter private List<Budget> budgets;
     
     public enum Role {
     	  ROLE_USER, ROLE_ADMIN;
     	}
+
+	@Override
+	public String toString() {
+		return "User [" + super.toString() + ", email" + email + "]";
+	}
+    
+    
 	
 }

@@ -16,30 +16,37 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.BatchSize;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "budgets")
-public  @Data class Budget extends BaseEntity {
+public class Budget extends BaseEntity {
 
   @ManyToOne
   @JoinColumn(name = "budget_creator_id")
-  private User budgetCreator;
+  @Getter @Setter private User budgetCreator;
   
   @Column(name = "budget_name", nullable = false)
-  private String budgetName;
+  @Getter @Setter private String budgetName;
 
   @Column
-  private String description;
+  @Getter @Setter private String description;
 
   @OneToMany(mappedBy = "budget")
   @BatchSize(size = 200)
-  private List<Fundsflow> meansFlowList;
+  @Getter @Setter private List<Fundsflow> meansFlowList;
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinTable(name = "budget_user", uniqueConstraints = @UniqueConstraint(columnNames = { "budget_id",
       "user_id" }), joinColumns = @JoinColumn(name = "budget_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-  private List<User> contributors;
+  @Getter @Setter private List<User> contributors;
+
+	@Override
+	public String toString() {
+	return "budget object [" + super.toString() + ", budgetName: " + budgetName 
+			 + "]";
+}
 
   
 }
