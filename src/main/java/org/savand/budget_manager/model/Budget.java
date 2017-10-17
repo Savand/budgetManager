@@ -27,7 +27,7 @@ public class Budget extends BaseEntity {
   @Getter @Setter private String description;
 
   @OneToMany(mappedBy = "budget")
-  @Getter @Setter private List<Fundsflow> meansFlowList;
+  @Getter @Setter private List<Fundsflow> fundsFlowList;
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinTable(name = "budget_user", uniqueConstraints = @UniqueConstraint(columnNames = { "budget_id",
