@@ -1,0 +1,39 @@
+---
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+    #local db
+    url: jdbc:postgresql://localhost:5432/budgetManager
+    username: postgres
+    password: postgres
+
+    #heroku db
+#    url: jdbc:postgresql://ec2-176-34-111-152.eu-west-1.compute.amazonaws.com:5432/d7irm43arb0pg
+#    username: ipfadcnoxhclje
+#    password: 5a5e05c05484bfc4ef7fc45eb2d2687d4ab73295446679f2ec95b146396b97ac
+
+
+#  data:
+#    rest:
+#      basePath: /api
+
+
+server:
+    port: 8099
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://localhost:8761}/eureka/    
+#    healthcheck:
+#      enabled: true
+#    lease:
+#      duration: 5
+  instance:
+    leaseRenewalIntervalInSeconds: 100
+    leaseExpirationDurationInSeconds: 200
+ribbon:
+    eureka:
+        enabled: true
